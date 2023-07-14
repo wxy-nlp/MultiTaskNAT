@@ -147,10 +147,6 @@ class mt_ctc_loss(LabelSmoothedDualImitationCriterion):
         for at_loss in at_loss_list:
             logging_output["at-" + str(num_at_loss) + "-loss"] = at_loss.data
             num_at_loss += 1
-        if self.at_adaptive_rate:
-            logging_output["at-adpt-loss"] = hybrid_loss["AT"].data
-        else:
-            logging_output["at-all-loss"] = hybrid_loss["AT"].data
         return loss, sample_size, logging_output
 
     @staticmethod
