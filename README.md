@@ -1,7 +1,7 @@
 Implementation for the EMNLP2022 paper "**Helping the Weak Makes You Strong: Simple Multi-Task Learning Improves Non-Autoregressive Translators.**"
 .
 
-## Model Architecture
+## Overview
 
 ![image-20230714143928988](./model.png)
 
@@ -18,6 +18,6 @@ Our framework is plug-and-play and model-agnostic, so you can easily add a new N
 git clone https://github.com/wxy-nlp/MultiTaskNAT.git && cd MultiTaskNAT && pip install -e .
 ```
 
-## Training and Running
+## Training and Evaluating
 
-We integrate the training and running pipeline in an bash file in the "run" folder. You can change the variable 
+We integrate the training and evaluating pipeline in a shell file in the "run" folder. You should check the configuration and modify it to adapt to your environment if neccesary. After this, you can just execute the command like "sh run_wmt14.sh" and start training and evaluating processes.
