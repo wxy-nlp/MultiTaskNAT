@@ -18,7 +18,7 @@ Our framework is plug-and-play and model-agnostic, so you can easily add a new N
 git clone https://github.com/wxy-nlp/MultiTaskNAT.git && cd MultiTaskNAT && pip install -e . 
 ```
 
-(Optional) We use the ctcdecode tool from parlence to support CTC beam search. You can use the following command to install it.
+(Optional) We use the ctcdecode tool from parlance to support CTC beam search. You can use the following command to install it.
 
 ```
 cd ctcdecode && pip install .
