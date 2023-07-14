@@ -9,6 +9,7 @@ task=mt_ctc_task
 criterion=mt_ctc_loss
 arch=mt_ctc_multi
 max_token=8192
+max_update=300000
 update_freq=2
 
 echo "=============Training============="
@@ -40,7 +41,7 @@ python ../train.py \
     --fixed-validation-seed 7 \
     --max-tokens ${max_token} \
     --update-freq ${update_freq} \
-    --max-update 300000 \
+    --max-update ${max_update} \
     --eval-bleu \
     --eval-bleu-args '{"beam": 1, "max_len_a": 1.2, "max_len_b": 10}' \
     --eval-bleu-detok moses \
@@ -52,19 +53,19 @@ python ../train.py \
 
 echo "=============Averaging checkpoints============="
 
-python ~/fairseq/scripts/average_checkpoints.py \
+python ../scripts/average_checkpoints.py \
     --inputs ${savedir} \
     --num-best-checkpoints 5 \
     --output ${savedir}/checkpoint.best_average_5.pt
 
-python ~/fairseq/scripts/average_checkpoints.py \
+python ../scripts/average_checkpoints.py \
     --inputs ${savedir} \
     --num-top-checkpoints 5 \
     --output ${savedir}/checkpoint.top5_average_5.pt
 
 echo "=============Generating by average============="
 
-python ~/fairseq/generate.py \
+python ../generate.py \
     --path ${savedir}/checkpoint.best_average_5.pt \
     ${dataset} \
     --gen-subset test \
@@ -76,7 +77,7 @@ python ~/fairseq/generate.py \
     --print-step \
     --batch-size 256
 
-python ~/fairseq/generate.py \
+python ../generate.py \
     --path ${savedir}/checkpoint.top5_average_5.pt \
     ${dataset} \
     --gen-subset test \
