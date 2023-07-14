@@ -15,8 +15,16 @@ Our framework is plug-and-play and model-agnostic, so you can easily add a new N
 - Pytorch >= 1.11.0
 
 ```
-git clone https://github.com/wxy-nlp/MultiTaskNAT.git && cd MultiTaskNAT && pip install -e .
+git clone https://github.com/wxy-nlp/MultiTaskNAT.git && cd MultiTaskNAT && pip install -e . 
 ```
+
+(Optional) We use the ctcdecode tool from parlence to support CTC beam search. You can use the following command to install it.
+
+```
+cd ctcdecode && pip install .
+```
+
+P.S. In order to install correctly, you should have g++ >= 7.5.0. 
 
 ## Training and Evaluating
 
