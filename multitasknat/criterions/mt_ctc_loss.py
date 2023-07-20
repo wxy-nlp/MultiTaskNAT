@@ -113,11 +113,12 @@ class mt_ctc_loss(LabelSmoothedDualImitationCriterion):
                         at_loss, at_nll_loss = at_loss.mean(), at_nll_loss.mean()
                         at_loss_list.append(at_loss)
                         at_nll_loss_list.append(at_nll_loss)
-                    at_loss_tensor = torch.stack(at_loss_list, dim=0)
-                    if self.at_adaptive_rate:
-                        hybrid_loss["AT"] = torch.logsumexp(at_loss_tensor, dim=0)
-                    else:
-                        hybrid_loss["AT"] = sum(l for l in at_loss_list) / len(at_loss_list)
+                    # at_loss_tensor = torch.stack(at_loss_list, dim=0)
+                    # if self.at_adaptive_rate:
+                    #     hybrid_loss["AT"] = torch.logsumexp(at_loss_tensor, dim=0)
+                    # else:
+                    #     hybrid_loss["AT"] = sum(l for l in at_loss_list) / len(at_loss_list)
+                    hybrid_loss["AT"] = sum(l for l in at_loss_list) / len(at_loss_list)
                 else:
                     hybrid_loss["AT"] = outputs["loss"]
                     at_loss_list = outputs['at_loss_list']
