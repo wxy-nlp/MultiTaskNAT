@@ -159,7 +159,7 @@ def main():
 
     if num is not None:
         args.inputs = last_n_checkpoints(
-            args.inputs, num, metric, args.is_update_based, is_best_based, is_top_based,
+            args.inputs, num, metric, is_update_based, is_best_based, is_top_based,
             upper_bound=args.checkpoint_upper_bound,
         )
         print('averaging checkpoints: ', args.inputs)
