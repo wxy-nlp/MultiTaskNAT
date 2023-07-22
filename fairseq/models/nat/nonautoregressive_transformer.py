@@ -177,12 +177,12 @@ class NATransformerModel(FairseqNATModel):
 
     def regenerate_length_beam(self, decoder_out, beam_size):
         output_tokens = decoder_out.output_tokens
-        # length_tgt = output_tokens.ne(self.pad).sum(1)
-        encoder_out = decoder_out.output_scores
-        length_tgt = self.decoder.forward_length_prediction(
-            self.decoder.forward_length(normalize=True, encoder_out=encoder_out),
-            encoder_out=encoder_out,
-        )
+        length_tgt = output_tokens.ne(self.pad).sum(1)
+        # encoder_out = decoder_out.output_scores
+        # length_tgt = self.decoder.forward_length_prediction(
+        #     self.decoder.forward_length(normalize=True, encoder_out=encoder_out),
+        #     encoder_out=encoder_out,
+        # )
         length_tgt = (
             length_tgt[:, None]
             + utils.new_arange(length_tgt, 1, beam_size)
@@ -201,9 +201,12 @@ class NATransformerModel(FairseqNATModel):
         initial_output_tokens[:, 0] = self.bos
         initial_output_tokens.scatter_(1, length_tgt[:, None] - 1, self.eos)
 
+        # initial_output_scores = initial_output_tokens.new_zeros(
+        #     *initial_output_tokens.size()
+        # ).type_as(decoder_out.output_scores["encoder_out"][0])
         initial_output_scores = initial_output_tokens.new_zeros(
             *initial_output_tokens.size()
-        ).type_as(decoder_out.output_scores["encoder_out"][0])
+        ).type_as(decoder_out.output_scores)
 
         return decoder_out._replace(
             output_tokens=initial_output_tokens, output_scores=initial_output_scores

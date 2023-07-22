@@ -95,7 +95,6 @@ class mt_ctc_multi_model(NAT_ctc_model):
                             help='do not use nat encoder output.')
 
     def forward(self, at_src_tokens, nat_src_tokens, src_lengths, prev_nat, prev_at, tgt_tokens, **kwargs):
-        # 执行两次模型。at_src_tokens和nat_src_tokens的区别就在于顺序不同
         nat_encoder_out = self.encoder(nat_src_tokens, src_lengths=src_lengths, **kwargs)
         at_encoder_out = nat_encoder_out
         if getattr(self.args, "if_deepcopy_at_sample", False):

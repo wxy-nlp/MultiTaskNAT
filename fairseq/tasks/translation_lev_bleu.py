@@ -34,7 +34,7 @@ class TranslationLevenshteinBLEUTask(TranslationLevenshteinTask):
 
     cfg: TranslationLevenshteinConfig
 
-    def valid_step(self, sample, model, criterion):
+    def valid_step(self, sample, model, criterion, **kwargs):
         model.eval()
         with torch.no_grad():
             sample["prev_target"] = self.inject_noise(sample["target"])
